@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="reveal.js/dist/reset.css" />
+  <link rel="stylesheet" href="reveal.js/dist/reveal.css" />
+  <link rel="stylesheet" href="reveal.js/dist/theme/white.css" />
+  <link rel="stylesheet" href="fonts/inconsolata.css" />
+  <link rel="stylesheet" href="css/hljs.css" />
+  <link rel="stylesheet" href="css/common.css" />
+  <link rel="shortcut icon" type="image/png" href="https://ericwieser.me/images/favicon.png"/>
+  <meta name="author" content="Eric Wieser" />
+  <meta name="keywords" content="Quadratic form, Formalization, mathlib" />
+  <title>The base change of quadratic forms</title>
+</head>
+
+<body>
+  <div class="reveal">
+    <div class="slides">
+      <section style="height: var(--slide-height)">
+        <div style="display: grid; align-items: center; height: 100%">
+          <div>
+            <h1 style="font-size:1.5em">The base change of<br/>quadratic forms</h1>
+
+            <p class="multiline">Eric Wieser<br/>
+                Cambridge University Engineering Department</p>
+            <small>slides: <a href="https://eric-wieser.github.io/xena-2023">
+            eric-wieser.github.io/xena-2023</a></small>
+            <small style="display: block; text-align: center; opacity: 0.5">2023-08-24</small>
+          </div>
+        </div>
+      </section>
+      <section>
+        <h2>What's a quadratic form?</h2>
+        <pre><code data-trim data-noescape class="language-lean">
+        structure QuadraticForm (R : Type u) (M : Type v)
+            [Semiring R] [AddCommMonoid M] [Module R M] where
+          toFun : M → R
+          toFun_smul : ∀ (a : R) (x : M), <b>toFun (a • x) = a * a * toFun x</b>
+          exists_companion' : ∃ B : BilinForm R M, ∀ x y,
+            toFun (x + y) = toFun x + toFun y + B x y
+        </code></pre>
+        <p>Or avoiding Lean:</p>
+        \[\begin{aligned}
+          Q(ax) &= a^2Q(x) \\
+          Q(x + y) &= Q(x) + B(x, y) + Q(y)
+        \end{aligned}\]
+        <p>Examples: $Q(x) = x^2$, $Q(v) = v_x^2 + v_y^2 + v_z^2$, &hellip;</p>
+      </section>
+      <section>
+        <h2>The challenge</h2>
+        <blockquote>One can complexify real quadratic vector spaces as follows. Let $(V,Q)$ be a real quadratic vector
+          space and let $V_\mathbb{C}$ = $V ⊗_\mathbb{R} \mathbb{C}$ be its complexification. We extend $Q$ complex linearly to a quadratic form QC
+          defined by $Q_\mathbb{C}(v ⊗ z) = z^2Q(v)$. This turns the pair $(V_\mathbb{C},Q_\mathbb{C})$ into a complex quadratic vector space.</blockquote>
+        (from <a href="https://empg.maths.ed.ac.uk/Activities/Spin/SpinNotes.pdf">Spin Geometry</a>)
+      </section>
+      <section>
+        <h2>The challenge</h2>
+        <img src="owl.png" style="width: 100%">
+      </section>
+      <section>
+        <h3>Relation to bilinear forms</h3>
+        <p>At least, when not characteristic two&hellip;</p>
+        \[\begin{aligned}
+          B_Q(x,y) &= \frac{1}{2}(Q(x + y) - Q(x) - Q(y)) \\
+          Q_B(x) &= B(x,x)
+        \end{aligned}\]
+      </section>
+    </div>
+  </div>
+  <script src="reveal.js/dist/reveal.js"></script>
+  <script src="reveal.js/plugin/highlight/highlight.js"></script>
+  <script src="reveal.js/plugin/math/math.js"></script>
+  <script src="reveal.js/plugin/notes/notes.js"></script>
+  <script src="js/lean.min.js"></script>
+  <script src="js/lean-goal.js"></script>
+  <script src="js/merge-html.js"></script>
+  <script>
+    RevealHighlight().hljs.addPlugin(mergeHTMLPlugin);
+    Reveal.initialize({
+      mathjax3: {
+        mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js',
+        loader: {load: ['[tex]/mathtools', '[tex]/centernot']},
+        tex: {
+          packages: {'[+]': ['mathtools', 'centernot']},
+        },
+        chtml: {
+          // This seems to break rendering on slides that weren't onscreen at render time
+          // mtextInheritFont: true,
+          mtextFont: 'Source Sans Pro',
+        },
+        options: {
+          skipHtmlTags: {'[-]': ['code', 'pre']},
+        },
+      },
+      katex: {
+        macros: {
+          "\\smallunderbrace":
+            String.raw`{\tiny\underbrace{\huge{#1}}_{\huge\scriptsize#2}}`
+        },
+        trust: true,
+        strict: false
+      },
+      plugins: [
+        RevealHighlight,
+        RevealMath.KaTeX,
+        RevealNotes,
+      ],
+      history: true,
+      center: false,
+      // defaultTiming: 40,
+      slideNumber: 'c/t',
+      // width: 1280*0.96,
+      // height: 1024*0.96,
+      // width: 1856,
+      // height: 1016,
+      margin: 0.04,
+      navigationMode: 'linear',
+      totalTime: 25*60,
+      // showNotes: 'separate-page'
+    });
+  </script>
+  <script src="js/inline_svg.js"></script>
+</body>
+
+</html>
