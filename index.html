@@ -122,21 +122,27 @@
           </code></pre>
         </section>
       </section>
-      <section>
-        <h3><div class="parent-title"><span>Bilinear forms</span></div>A more general challenge</h3>
-        <pre><code data-trim data-noescape class="language-lean">
-        def tensor (B₁ : BilinForm A V₁) (B₂ : BilinForm R V₂) : BilinForm A (V₁ ⊗[R] V₂)
-        theorem tensor_tmul (v₁ w₁ : V₁) (v₂ w₂ : V₂) :
-          B₁.tmul B₂ (v₁ ⊗ₜ v) (w₁ ⊗ₜ w) = B₂ v₂ w₂ • B₁ v₁ w₁  
-        </code></pre>
-        <div class="fragment">
-          <p>Or even further</p>
-          <pre><code data-trim data-noescape class="language-lean" style="text-align: center">
-            BilinForm A V₁ ⊗[R] BilinForm R V₂ →ₗ[A] BilinForm A (V₁ ⊗[R] V₂)
-          </code></pre>
-        </div>
-        <div class="fragment">
-          $$(V_1 \to_A V_1 \to_A A) \otimes_R (V_2 \to_R V_2 \to_R R) \\ \to_A \\ ((V_1 \otimes_R V_2) \to_A (V_1 \otimes_R V_2) \to_A A)$$
+      <section  style="height: var(--slide-height)">
+        <div class="grid" style="height: 100%;">
+          <div>
+            <h3><div class="parent-title"><span>Bilinear forms</span></div>A more general challenge</h3>
+            <p><code>a * b</code> is just a special case of <code>B a b</code>!</p>
+            <pre><code data-trim data-noescape class="language-lean">
+            def tensor (B₁ : BilinForm A V₁) (B₂ : BilinForm R V₂) :
+              BilinForm A (V₁ ⊗[R] V₂)
+            theorem tensor_tmul (v₁ w₁ : V₁) (v₂ w₂ : V₂) :
+              B₁.tmul B₂ (v₁ ⊗ₜ v) (w₁ ⊗ₜ w) = B₂ v₂ w₂ • B₁ v₁ w₁
+            </code></pre>
+            <div class="fragment">
+              <p>Or even further</p>
+              <pre><code data-trim data-noescape class="language-lean" style="text-align: center">
+                BilinForm A V₁ ⊗[R] BilinForm R V₂ →ₗ[A] BilinForm A (V₁ ⊗[R] V₂)
+              </code></pre>
+            </div>
+          </div>
+          <div class="fragment">
+            $$(V_1 \to_A V_1 \to_A A) \otimes_R (V_2 \to_R V_2 \to_R R) \\ \to_A \\ ((V_1 \otimes_R V_2) \to_A (V_1 \otimes_R V_2) \to_A A)$$
+          </div>
         </div>
       </section>
       <section>
