@@ -1,0 +1,20 @@
+{
+    "short_name": "xena-2023",
+    "name": "Base change of quadratic forms",
+    "icons": [
+      {
+        "src": "https://ericwieser.me/images/favicon.png",
+        "type": "image/png"
+      }
+    ],
+    "id": "/?source=pwa",
+    "start_url": "/?source=pwa",
+    "background_color": "#ffffff",
+    "display": "standalone",
+    "display_override": ["window-controls-overlay"],
+    "scope": "/",
+    "theme_color": "#ffffff",
+    "shortcuts": [],
+    "description": "A talk",
+    "screenshots": []
+}
