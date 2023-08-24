@@ -150,8 +150,8 @@
           <h3><div class="parent-title"><span>The challenge</span></div>A detour on the route</h3>
           <p class="intro-left">Represent quadratic form as</p>
           <ul>
-            <li>polynomials, and do a base change <small>(Antoine Chambert-Loir)</small></li>
-            <li>bilinear forms, and extend the coefficients <small>(This talk)</small></li>
+            <li>polynomials, and base change the coefficients <small>(Antoine Chambert-Loir)</small></li>
+            <li>bilinear forms, and base change there <small>(This talk)</small></li>
           </ul>
           <p>This only works if the representations are unique!</p>
         </section>
@@ -165,12 +165,14 @@
             B_Q(x,y) &= \frac{1}{2}(Q(x + y) - Q(x) - Q(y)) \\
             Q_B(x) &= B(x,x)
           \end{aligned}\]
-          <p>New target</p>
-          <pre><code data-trim data-noescape class="language-lean">
-          def baseChange (B : BilinForm R V) : BilinForm A (A ⊗[R] V)
-          theorem baseChange_tmul (a b : A) (v w : V) :
-            B.baseChange A (a ⊗ₜ v) (b ⊗ₜ w) = B v w • (a * b)
-          </code></pre>
+          <div class="fragment">
+            <p>New target</p>
+            <pre><code data-trim data-noescape class="language-lean">
+            def baseChange (B : BilinForm R V) : BilinForm A (A ⊗[R] V)
+            theorem baseChange_tmul (a b : A) (v w : V) :
+              B.baseChange A (a ⊗ₜ v) (b ⊗ₜ w) = B v w • (a * b)
+            </code></pre>
+          </div>
         </section>
         <section style="height: var(--slide-height)"  data-auto-animate>
           <div class="grid" style="height: 100%;">
