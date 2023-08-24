@@ -49,6 +49,45 @@
         <p>Examples: $Q(x) = x^2$, $Q(v) = v_x^2 + v_y^2 + v_z^2$, &hellip;</p>
       </section>
       <section>
+        <h2>What's a base change?</h2>
+        <p>Replace the <q>base</q> ring of an object;<br />for example, a base change from $\mathbb{R}$ to $\mathbb{C}$:</p>
+        <table style="font-size: 75%">
+          <thead>
+            <tr>
+              <th>Original</th><th>Base change</th><th>example</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>$\mathbb{R}$</td><td>$\mathbb{C}$</td>
+              <td>
+                $r \mapsto {\uparrow\!r}$</td>
+            </tr>
+            <tr>
+              <td>$\mathbb{R}[X]$</td><td>$\mathbb{C}[X]$</td>
+              <td>
+                $aX + b \mapsto ({\uparrow\! a})X+{\uparrow\!b}$</td>
+            </tr>
+            <tr>
+              <td>$\mathbb{R}^n$</td><td>$\mathbb{C}^n$</td>
+              <td>
+                $(a,b,c) \mapsto ({\uparrow\!a},{\uparrow\!b},{\uparrow\!c})$</td>
+            </tr>
+            <tr class="fragment">
+              <td>$V$</td><td>$\mathbb{C} \otimes_\mathbb{R} V$</td>
+              <td>
+                $v \mapsto 1 \otimes v$</td>
+            </tr>
+            <tr class="fragment">
+              <td>$V\to_\mathbb{R} W$</td>
+              <td >$(\mathbb{C} \otimes_\mathbb{R} V) \to_\mathbb{C} (\mathbb{C} \otimes_\mathbb{R} W)$
+              <td>
+                $F(z \otimes v) = z \otimes f(v)$</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+      <section>
         <section style="height: var(--slide-height)">
           <div class="grid" style="height: 100%">
             <div>
@@ -65,7 +104,8 @@
             <div class="fragment">
               <p>Generalization to an $R$-algebra $A$:</p>
               <pre><code data-trim data-noescape class="language-lean">
-              def baseChange (Q : QuadraticForm R V) : QuadraticForm A (A ⊗[R] V)
+              def baseChange (Q : QuadraticForm R V) :
+                QuadraticForm A (A ⊗[R] V)
               theorem baseChange_tmul (Q : QuadraticForm R V) (a : A) (v : V) :
                 Q.baseChange A (a ⊗ₜ v) = Q v • (a * a)
               </code></pre>
@@ -74,7 +114,7 @@
         </section>
         <section>
           <h3><div class="parent-title"><span>The challenge</span></div>Extending?</h3>
-          <img src="owl.png" style="width:50%" alt="draw the rest of the owl">
+          <img  class="fragment" src="owl.png" style="width:50%" alt="draw the rest of the owl">
           <div class="grid" style="grid-template-columns: auto auto;">
             <div class="fragment">
               <p>Define $Q_\mathbb{C}(v ⊗ z) = z^2Q(v)$</p>
@@ -88,7 +128,7 @@
           <h3><div class="parent-title"><span>The challenge</span></div>Extending maps from $M \otimes_R N$</h3>
           <pre><code data-trim data-noescape class="language-lean">
             def TensorProduct.lift (f : M →ₗ[R] N →ₗ[R] P) :
-              M ⊗[R] N <span class="fragment highlight-blue">→ₗ[R]</span> P
+              M ⊗[R] N →ₗ[R] P
 
             theorem lift.tmul (f : M →ₗ[R] N →ₗ[R] P) (m : M) (n : N) :
               lift f (m ⊗ₜ[R] n) = f m n := rfl
@@ -103,6 +143,7 @@
             <li>polynomials, and do a base change <small>(Antoine Chambert-Loir)</small></li>
             <li>bilinear forms, and extend the coefficients <small>(This talk)</small></li>
           </ul>
+          <p>This only works if the representations are unique!</p>
         </section>
       </section>
       <section>
@@ -121,43 +162,92 @@
             B.baseChange A (a ⊗ₜ v) (b ⊗ₜ w) = B v w • (a * b)
           </code></pre>
         </section>
-      </section>
-      <section  style="height: var(--slide-height)">
-        <div class="grid" style="height: 100%;">
-          <div>
-            <h3><div class="parent-title"><span>Bilinear forms</span></div>A more general challenge</h3>
-            <p><code>a * b</code> is just a special case of <code>B a b</code>!</p>
-            <pre><code data-trim data-noescape class="language-lean">
-            def tensor (B₁ : BilinForm A V₁) (B₂ : BilinForm R V₂) :
-              BilinForm A (V₁ ⊗[R] V₂)
-            theorem tensor_tmul (v₁ w₁ : V₁) (v₂ w₂ : V₂) :
-              B₁.tmul B₂ (v₁ ⊗ₜ v) (w₁ ⊗ₜ w) = B₂ v₂ w₂ • B₁ v₁ w₁
-            </code></pre>
-            <div class="fragment">
-              <p>Or even further</p>
-              <pre><code data-trim data-noescape class="language-lean" style="text-align: center">
-                BilinForm A V₁ ⊗[R] BilinForm R V₂ →ₗ[A] BilinForm A (V₁ ⊗[R] V₂)
+        <section  style="height: var(--slide-height)">
+          <div class="grid" style="height: 100%;">
+            <div>
+              <h3><div class="parent-title"><span>Bilinear forms</span></div>A more general challenge</h3>
+              <p><code>a * b</code> is just a special case of <code>B a b</code>!</p>
+              <pre><code data-trim data-noescape class="language-lean">
+              def tensor (B₁ : BilinForm A V₁) (B₂ : BilinForm R V₂) :
+                BilinForm A (V₁ ⊗[R] V₂)
+              theorem tensor_tmul (v₁ w₁ : V₁) (v₂ w₂ : V₂) :
+                B₁.tmul B₂ (v₁ ⊗ₜ v) (w₁ ⊗ₜ w) = B₂ v₂ w₂ • B₁ v₁ w₁
               </code></pre>
+              <div class="fragment">
+                <p>Or even further</p>
+                <pre><code data-trim data-noescape class="language-lean" style="text-align: center">
+                  BilinForm A V₁ ⊗[R] BilinForm R V₂ →ₗ[A] BilinForm A (V₁ ⊗[R] V₂)
+                </code></pre>
+              </div>
+            </div>
+            <div class="fragment">
+              $$(V_1 \to_A V_1 \to_A A) \otimes_R (V_2 \to_R V_2 \to_R R) \\ \to_A \\ ((V_1 \otimes_R V_2) \to_A (V_1 \otimes_R V_2) \to_A A)$$
             </div>
           </div>
-          <div class="fragment">
-            $$(V_1 \to_A V_1 \to_A A) \otimes_R (V_2 \to_R V_2 \to_R R) \\ \to_A \\ ((V_1 \otimes_R V_2) \to_A (V_1 \otimes_R V_2) \to_A A)$$
+        </section>
+        <section>
+          <h3><div class="parent-title"><span>Bilinear forms</span></div>The construction</h3>
+          <p>A <code>calc</code>-style construction; $\to_A$ and $\cong_A$ are<br /> $A$-linear homomorphisms and isomorphisms.</p>
+          <div style="font-size: 90%">
+            \[\begin{aligned}
+            &\phantom{\cong_A} (V_1 \to_A V_1 \to_A A) \otimes_R (V_2 \to_R V_2 \to_R R) \\
+              &\cong_A ((V_1 \otimes_A V_1) \to_A A) \otimes_R ((V_2 \otimes_R V_2) \to_R R) \\
+              &\phantom{\cong_A}\mathllap{\!\to_A\;} ((V_1 \otimes_A V_1) \otimes_R (V_2 \otimes_R V_2)) \to_A A \\
+              &\cong_A ((V_1 \otimes_R V_2) \otimes_A (V_1 \otimes_R V_2)) \to_A A \\
+              &\cong_A (V_1 \otimes_R V_2) \to_A (V_1 \otimes_R V_2) \to_A A
+            \end{aligned}\]
           </div>
+          <p>Mathlib had all these pieces, but only for $R = A$!<br />(they were not heterogenous)</p>
+        </section>
+      </section>
+      <section>
+        <h2>A tensor product challenge</h2>
+        <div style="font-size: 90%">
+          $(M \otimes_R N) \otimes_A (P \otimes_R Q) \cong_A (M \otimes_A P) \otimes_R (N \otimes_R Q)$
+        </div>
+        <p>How do we even make sense of this?</p>
+        <ul>
+          <li>$M, N, P, Q$ are $R$-modules</li>
+          <li>$M, P$ are $A$-modules <small>(compatibly: <code>IsScalarTower R A ·</code>)</small></li>
+        </ul>
+        <div class="fragment">
+          <p>Lean needs to work out that</p>
+          <ul>
+            <li>$P \otimes_R Q, M \otimes_A P, N \otimes_R Q$ are $R$-modules</li>
+            <li>$M \otimes_R N, P \otimes_R Q$ are $A$-modules <small>(compatibly)</small></li>
+            <li>The LHS and RHS are both $A$-modules</li>
+          </ul>
         </div>
       </section>
       <section>
-        <h3><div class="parent-title"><span>Bilinear forms</span></div>The construction</h3>
-        <p>A <code>calc</code>-style construction; $\to_A$ and $\cong_A$ are<br /> $A$-linear homomorphisms and isomorphisms.</p>
-        <div style="font-size: 90%">
-          \[\begin{aligned}
-          &\phantom{\cong_A} (V_1 \to_A V_1 \to_A A) \otimes_R (V_2 \to_R V_2 \to_R R) \\
-            &\cong_A ((V_1 \otimes_A V_1) \to_A A) \otimes_R ((V_2 \otimes_R V_2) \to_R R) \\
-            &\phantom{\cong_A}\mathllap{\!\to_A\;} ((V_1 \otimes_A V_1) \otimes_R (V_2 \otimes_R V_2)) \to_A A \\
-            &\cong_A ((V_1 \otimes_R V_2) \otimes_A (V_1 \otimes_R V_2)) \to_A A \\
-            &\cong_A (V_1 \otimes_R V_2) \to_A (V_1 \otimes_R V_2) \to_A A
-          \end{aligned}\]
+        <h2>A summary</h2>
+        <h3>Mathlib PRs</h3>
+        <div class="grid" style="justify-content: space-around">
+          <ul style="font-size: 75%">
+            <li><a href="https://github.com/leanprover-community/mathlib4/pull/6636">#6636</a> &mdash; feat: base change of quadratic forms</li>
+            <li><a href="https://github.com/leanprover-community/mathlib4/pull/6306">#6306</a> &mdash; feat: base change of bilinear forms</li>
+            <li><a href="https://github.com/leanprover-community/mathlib4/pull/6417">#6417</a> &mdash; feat(RingTheory/TensorProduct): heterogenize</li>
+            <li><a href="https://github.com/leanprover-community/mathlib4/pull/6035">#6035</a> &mdash; feat: heterogenize TensorProduct.congr and friends</li>
+            <li><a href="https://github.com/leanprover-community/mathlib4/pull/6094">#6094</a> &mdash; chore(linear_algebra/tensor_product): forward-port &hellip;</li>
+          </ul>
         </div>
-        <p>Mathlib had all these pieces, but only for $R = A$!</p>
+        <h3>Acknowledgements</h3>
+        <div class="grid" style="grid-template-columns: 1.25fr 1fr">
+          <blockquote style="font-size: 50%; text-align: justify;">
+  In this project we aim to formalize the Hasse-Minkowski Theorem. This
+  theorem states that a quadratic form over $\mathbb{Q}$ has solutions in $\mathbb{Q}$ (rational points)
+  if and only if it has solutions in all $p$-adic completions of $\mathbb{Q}$ and the reals (it is
+  locally soluble). [&hellip;].
+  <b>Defining the basechange of a quadratic form already turns out to be challenging!</b>
+            <p class="reference">
+              <cite><a href="https://github.com/alexjbest/ant-lorentz"></a>Machine-Checked Mathematics formalization projects</cite>
+              <span>Alex Best, Kevin Buzzard, Marco Streng, Hanneke Wiersema, Rosa&nbsp;Winter</span>
+            </cite>
+          </blockquote>
+          <div style="text-align: left">
+            <p>Independently needed at Leiden and discussed <a href="https://leanprover.zulipchat.com/#narrow/stream/217875-Is-there-code-for-X.3F/topic/Base.20change.20for.20bilinear.20maps.20and.20quadratic.20forms/near/374319756">on Zulip</a>!</p>
+          </div>
+        </div>
       </section>
     </div>
   </div>
@@ -209,7 +299,7 @@
       // height: 1016,
       margin: 0.04,
       navigationMode: 'linear',
-      totalTime: 25*60,
+      totalTime: 15*60,
       // showNotes: 'separate-page'
     });
   </script>
