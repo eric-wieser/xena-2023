@@ -172,7 +172,7 @@
             B.baseChange A (a ⊗ₜ v) (b ⊗ₜ w) = B v w • (a * b)
           </code></pre>
         </section>
-        <section  style="height: var(--slide-height)">
+        <section style="height: var(--slide-height)"  data-auto-animate>
           <div class="grid" style="height: 100%;">
             <div>
               <h3><div class="parent-title"><span>Bilinear forms</span></div>A more general challenge</h3>
@@ -191,7 +191,8 @@
               </div>
             </div>
             <div class="fragment">
-              $$(V_1 \to_A V_1 \to_A A) \otimes_R (V_2 \to_R V_2 \to_R R) \\ \to_A \\ ((V_1 \otimes_R V_2) \to_A (V_1 \otimes_R V_2) \to_A A)$$
+              $$\htmlData{id=eq-l0}{(V_1 \to_A V_1 \to_A A) \otimes_R (V_2 \to_R V_2 \to_R R)} \\ \to_A \\
+              \htmlData{id=eq-l4-rhs}{((V_1 \otimes_R V_2) \to_A (V_1 \otimes_R V_2) \to_A A)}$$
             </div>
           </div>
         </section>
@@ -221,8 +222,8 @@
                 \htmlData{id=eq-l3-t}{
                   ((V_1 \otimes_{\color{red} R} V_2) \otimes_{\color{blue} A} (V_1 \otimes_{\color{red} R} V_2))}
                     \to_{\color{blue} A} A \\
-              &\htmlData{id=eq-l4}{\cong_{\color{blue} A}
-                (V_1 \otimes_{\color{red} R} V_2) \to_{\color{blue} A} (V_1 \otimes_{\color{red} R} V_2) \to_{\color{blue} A} A}
+              &\htmlData{id=eq-l4}{\cong_{\color{blue} A}}
+              \htmlData{id=eq-l4-rhs}{(V_1 \otimes_{\color{red} R} V_2) \to_{\color{blue} A} (V_1 \otimes_{\color{red} R} V_2) \to_{\color{blue} A} A}
             \end{aligned}\]
           </div>
         </section>
@@ -251,8 +252,8 @@
               &\htmlData{id=eq-l3}{\cong_{\color{blue} A}}
                 \operatorname{Dual}_{\color{blue} A}
                   \htmlData{id=eq-l3-t}{((V_1 \otimes_{\color{red} R} V_2) \otimes_{\color{blue} A} (V_1 \otimes_{\color{red} R} V_2))} \\
-              &\htmlData{id=eq-l4}{\cong_{\color{blue} A}
-                (V_1 \otimes_{\color{red} R} V_2) \to_{\color{blue} A} (V_1 \otimes_{\color{red} R} V_2) \to_{\color{blue} A} A}
+              &\htmlData{id=eq-l4}{\cong_{\color{blue} A}}
+                \htmlData{id=eq-l4-rhs}{(V_1 \otimes_{\color{red} R} V_2) \to_{\color{blue} A} (V_1 \otimes_{\color{red} R} V_2) \to_{\color{blue} A} A}
             \end{aligned}\]
           </div>
           <p class="fragment">Mathlib had all these pieces, but only for $R = A$!<br />(they were not heterogenous)</p>
