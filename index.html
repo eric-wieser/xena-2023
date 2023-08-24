@@ -185,31 +185,73 @@
             </div>
           </div>
         </section>
-        <section>
+        <section data-auto-animate>
           <h3><div class="parent-title"><span>Bilinear forms</span></div>The construction</h3>
           <p>A <code>calc</code>-style construction; $\to_A$ and $\cong_A$ are<br /> $A$-linear homomorphisms and isomorphisms.</p>
           <div style="font-size: 90%">
             \[\begin{aligned}
-            &\phantom{\cong_A} (V_1 \to_A V_1 \to_A A) \otimes_R (V_2 \to_R V_2 \to_R R) \\
-              &\cong_A ((V_1 \otimes_A V_1) \to_A A) \otimes_R ((V_2 \otimes_R V_2) \to_R R) \\
-              &\phantom{\cong_A}\mathllap{\!\to_A\;} ((V_1 \otimes_A V_1) \otimes_R (V_2 \otimes_R V_2)) \to_A A \\
-              &\cong_A ((V_1 \otimes_R V_2) \otimes_A (V_1 \otimes_R V_2)) \to_A A \\
-              &\cong_A (V_1 \otimes_R V_2) \to_A (V_1 \otimes_R V_2) \to_A A
+              &\phantom{\cong_A}
+                \htmlData{id=eq-l0}{(V_1 \to_{\color{blue} A} V_1 \to_{\color{blue} A} A) \otimes_{\color{red} R} (V_2 \to_{\color{red} R} V_2 \to_{\color{red} R} R)} \\
+              &\htmlData{id=eq-l1}{\cong_{\color{blue} A}}
+                (\htmlData{id=eq-l1-t1}{(V_1 \otimes_{\color{blue} A} V_1)} \to_{\color{blue} A} A)
+                \htmlData{id=eq-l1-top}{\otimes_{\color{red} R}}
+                (\htmlData{id=eq-l1-t2}{(V_2 \otimes_{\color{red} R} V_2)} \to_{\color{red} R} R) \\
+              &\htmlData{id=eq-l2}{\phantom{\cong_{\color{blue} A}}\mathllap{\!\to_{\color{blue} A}\;}}
+                \htmlData{id=eq-l2-t}{((V_1 \otimes_{\color{blue} A} V_1) \otimes_{\color{red} R} (V_2 \otimes_{\color{red} R} V_2))}
+                  \to_{\color{blue} A} A \\
+              &\htmlData{id=eq-l3}{\cong_{\color{blue} A}}
+                \htmlData{id=eq-l3-t}{
+                  ((V_1 \otimes_{\color{red} R} V_2) \otimes_{\color{blue} A} (V_1 \otimes_{\color{red} R} V_2))}
+                    \to_{\color{blue} A} A \\
+              &\htmlData{id=eq-l4}{\cong_{\color{blue} A}
+                (V_1 \otimes_{\color{red} R} V_2) \to_{\color{blue} A} (V_1 \otimes_{\color{red} R} V_2) \to_{\color{blue} A} A}
             \end{aligned}\]
           </div>
-          <p>Mathlib had all these pieces, but only for $R = A$!<br />(they were not heterogenous)</p>
+        </section>
+        <section data-auto-animate>
+          <h3><div class="parent-title"><span>Bilinear forms</span></div>The construction</h3>
+          <p>A <code>calc</code>-style construction; $\to_A$ and $\cong_A$ are<br /> $A$-linear homomorphisms and isomorphisms.</p>
+          <div style="font-size: 90%">
+            \[\begin{aligned}
+              &\phantom{\cong_A}
+                \htmlData{id=eq-l0}{(V_1 \to_{\color{blue} A} V_1 \to_{\color{blue} A} A) \otimes_{\color{red} R} (V_2 \to_{\color{red} R} V_2 \to_{\color{red} R} R)} \\
+              &\htmlData{id=eq-l1}{\cong_{\color{blue} A}}
+              \mathrlap{
+                \operatorname{Dual}_{\color{blue} A}
+                  \htmlData{id=eq-l1-t1}{(V_1 \otimes_{\color{blue} A} V_1)}
+                \htmlData{id=eq-l1-top}{\otimes_{\color{red} R}}
+                \operatorname{Dual}_{\color{red} R}
+                  \htmlData{id=eq-l1-t2}{(V_2 \otimes_{\color{red} R} V_2)}}
+                \phantom{(\htmlData{id=eq-l1-t1}{(V_1 \otimes_{\color{blue} A} V_1)} \to_{\color{blue} A} A)
+                \htmlData{id=eq-l1-top}{\otimes_{\color{red} R}}
+                (\htmlData{id=eq-l1-t2}{(V_2 \otimes_{\color{red} R} V_2)} \to_{\color{red} R} R)} \\
+              &\htmlData{id=eq-l2}{\phantom{\cong_{\color{blue} A}}\mathllap{\!\to_{\color{blue} A}\;}}
+                {}\!\operatorname{Dual}_{\color{blue} A}
+                  \htmlData{id=eq-l2-t}{((V_1 \otimes_{\color{blue} A} V_1) \otimes_{\color{red} R} (V_2 \otimes_{\color{red} R} V_2))} \\
+              &\htmlData{id=eq-l3}{\cong_{\color{blue} A}}
+                \operatorname{Dual}_{\color{blue} A}
+                  \htmlData{id=eq-l3-t}{((V_1 \otimes_{\color{red} R} V_2) \otimes_{\color{blue} A} (V_1 \otimes_{\color{red} R} V_2))} \\
+              &\htmlData{id=eq-l4}{\cong_{\color{blue} A}
+                (V_1 \otimes_{\color{red} R} V_2) \to_{\color{blue} A} (V_1 \otimes_{\color{red} R} V_2) \to_{\color{blue} A} A}
+            \end{aligned}\]
+          </div>
+          <p class="fragment">Mathlib had all these pieces, but only for $R = A$!<br />(they were not heterogenous)</p>
         </section>
       </section>
       <section>
         <h2>A tensor product challenge</h2>
-        <div style="font-size: 90%">
-          $(M \otimes_R N) \otimes_A (P \otimes_R Q) \cong_A (M \otimes_A P) \otimes_R (N \otimes_R Q)$
+        $$(m \otimes n) \otimes (p \otimes q) \longleftrightarrow (m \otimes p) \otimes (n \otimes q)$$
+        <div class="fragment" style="font-size: 90%">
+          $$(M \otimes_{\color{red} R} N) \otimes_{\color{blue} A} (P \otimes_{\color{red} R} Q) \cong_{\color{blue} A} (M \otimes_{\color{blue} A} P) \otimes_{\color{red} R} (N \otimes_{\color{red} R} Q)$$
+
         </div>
-        <p>How do we even make sense of this?</p>
-        <ul>
-          <li>$M, N, P, Q$ are $R$-modules</li>
-          <li>$M, P$ are $A$-modules <small>(compatibly: <code>IsScalarTower R A ·</code>)</small></li>
-        </ul>
+        <div class="fragment">
+          <p>How do we even make sense of this?</p>
+          <ul>
+            <li>$M, N, P, Q$ are $R$-modules</li>
+            <li>$M, P$ are $A$-modules <small>(compatibly: <code>IsScalarTower R A ·</code>)</small></li>
+          </ul>
+        </div>
         <div class="fragment">
           <p>Lean needs to work out that</p>
           <ul>
@@ -231,21 +273,23 @@
             <li><a href="https://github.com/leanprover-community/mathlib4/pull/6094">#6094</a> &mdash; chore(linear_algebra/tensor_product): forward-port &hellip;</li>
           </ul>
         </div>
-        <h3>Acknowledgements</h3>
-        <div class="grid" style="grid-template-columns: 1.25fr 1fr">
-          <blockquote style="font-size: 50%; text-align: justify;">
-  In this project we aim to formalize the Hasse-Minkowski Theorem. This
-  theorem states that a quadratic form over $\mathbb{Q}$ has solutions in $\mathbb{Q}$ (rational points)
-  if and only if it has solutions in all $p$-adic completions of $\mathbb{Q}$ and the reals (it is
-  locally soluble). [&hellip;].
-  <b>Defining the basechange of a quadratic form already turns out to be challenging!</b>
-            <p class="reference">
-              <cite><a href="https://github.com/alexjbest/ant-lorentz"></a>Machine-Checked Mathematics formalization projects</cite>
-              <span>Alex Best, Kevin Buzzard, Marco Streng, Hanneke Wiersema, Rosa&nbsp;Winter</span>
-            </cite>
-          </blockquote>
-          <div style="text-align: left">
-            <p>Independently needed at Leiden and discussed <a href="https://leanprover.zulipchat.com/#narrow/stream/217875-Is-there-code-for-X.3F/topic/Base.20change.20for.20bilinear.20maps.20and.20quadratic.20forms/near/374319756">on Zulip</a>!</p>
+        <div class="fragment">
+          <h3>Acknowledgements</h3>
+          <div class="grid" style="grid-template-columns: 1.25fr 1fr">
+            <blockquote style="font-size: 50%; text-align: justify;">
+    In this project we aim to formalize the Hasse-Minkowski Theorem. This
+    theorem states that a quadratic form over $\mathbb{Q}$ has solutions in $\mathbb{Q}$ (rational points)
+    if and only if it has solutions in all $p$-adic completions of $\mathbb{Q}$ and the reals (it is
+    locally soluble). [&hellip;].
+    <b>Defining the basechange of a quadratic form already turns out to be challenging!</b>
+              <p class="reference">
+                <cite><a href="https://github.com/alexjbest/ant-lorentz"></a>Machine-Checked Mathematics formalization projects</cite>
+                <span>Alex Best, Kevin Buzzard, Marco Streng, Hanneke Wiersema, Rosa&nbsp;Winter</span>
+              </cite>
+            </blockquote>
+            <div style="text-align: left">
+              <p>Independently needed at Leiden and discussed <a href="https://leanprover.zulipchat.com/#narrow/stream/217875-Is-there-code-for-X.3F/topic/Base.20change.20for.20bilinear.20maps.20and.20quadratic.20forms/near/374319756">on Zulip</a>!</p>
+            </div>
           </div>
         </div>
       </section>
