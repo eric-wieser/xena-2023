@@ -195,6 +195,13 @@
             </div>
           </div>
         </section>
+        <style>
+          .katex [data-id],
+          .katex [data-dummy] {
+            display: inline-block;
+            position: relative;
+          }
+        </style>
         <section data-auto-animate>
           <h3><div class="parent-title"><span>Bilinear forms</span></div>The construction</h3>
           <p>A <code>calc</code>-style construction; $\to_A$ and $\cong_A$ are<br /> $A$-linear homomorphisms and isomorphisms.</p>
@@ -203,9 +210,10 @@
               &\phantom{\cong_A}
                 \htmlData{id=eq-l0}{(V_1 \to_{\color{blue} A} V_1 \to_{\color{blue} A} A) \otimes_{\color{red} R} (V_2 \to_{\color{red} R} V_2 \to_{\color{red} R} R)} \\
               &\htmlData{id=eq-l1}{\cong_{\color{blue} A}}
-                (\htmlData{id=eq-l1-t1}{(V_1 \otimes_{\color{blue} A} V_1)} \to_{\color{blue} A} A)
+                \htmlData{dummy=eq-l1-inner}{
+                {(\htmlData{id=eq-l1-t1}{(V_1 \otimes_{\color{blue} A} V_1)} \to_{\color{blue} A} A)}
                 \htmlData{id=eq-l1-top}{\otimes_{\color{red} R}}
-                (\htmlData{id=eq-l1-t2}{(V_2 \otimes_{\color{red} R} V_2)} \to_{\color{red} R} R) \\
+                {(\htmlData{id=eq-l1-t2}{(V_2 \otimes_{\color{red} R} V_2)} \to_{\color{red} R} R)}} \\
               &\htmlData{id=eq-l2}{\phantom{\cong_{\color{blue} A}}\mathllap{\!\to_{\color{blue} A}\;}}
                 \htmlData{id=eq-l2-t}{((V_1 \otimes_{\color{blue} A} V_1) \otimes_{\color{red} R} (V_2 \otimes_{\color{red} R} V_2))}
                   \to_{\color{blue} A} A \\
@@ -227,14 +235,16 @@
                 \htmlData{id=eq-l0}{(V_1 \to_{\color{blue} A} V_1 \to_{\color{blue} A} A) \otimes_{\color{red} R} (V_2 \to_{\color{red} R} V_2 \to_{\color{red} R} R)} \\
               &\htmlData{id=eq-l1}{\cong_{\color{blue} A}}
               \mathrlap{
+                \htmlData{dummy=eq-l1-inner}{
                 \operatorname{Dual}_{\color{blue} A}
                   \htmlData{id=eq-l1-t1}{(V_1 \otimes_{\color{blue} A} V_1)}
                 \htmlData{id=eq-l1-top}{\otimes_{\color{red} R}}
                 \operatorname{Dual}_{\color{red} R}
-                  \htmlData{id=eq-l1-t2}{(V_2 \otimes_{\color{red} R} V_2)}}
-                \phantom{(\htmlData{id=eq-l1-t1}{(V_1 \otimes_{\color{blue} A} V_1)} \to_{\color{blue} A} A)
+                  \htmlData{id=eq-l1-t2}{(V_2 \otimes_{\color{red} R} V_2)}}}
+                \phantom{({(V_1 \otimes_{\color{blue} A} V_1)} \to_{\color{blue} A} A)
                 \htmlData{id=eq-l1-top}{\otimes_{\color{red} R}}
-                (\htmlData{id=eq-l1-t2}{(V_2 \otimes_{\color{red} R} V_2)} \to_{\color{red} R} R)} \\
+                ({(V_2 \otimes_{\color{red} R} V_2)} \to_{\color{red} R} R)}
+                \\
               &\htmlData{id=eq-l2}{\phantom{\cong_{\color{blue} A}}\mathllap{\!\to_{\color{blue} A}\;}}
                 {}\!\operatorname{Dual}_{\color{blue} A}
                   \htmlData{id=eq-l2-t}{((V_1 \otimes_{\color{blue} A} V_1) \otimes_{\color{red} R} (V_2 \otimes_{\color{red} R} V_2))} \\
